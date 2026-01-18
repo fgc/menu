@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>🍽️ Menú Semanal</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            line-height: 1.6;
+            padding: 10px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding-bottom: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: white;
+            padding: 20px 0;
+            font-size: 1.5em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .day-section {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
+        }
+
+        .day-section.today {
+            background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%);
+            border: 3px solid #f39c12;
+            transform: scale(1.02);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+
+        .day-header {
+            font-size: 1.4em;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #2d3436;
+            border-bottom: 2px solid #dfe6e9;
+            padding-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .today .day-header {
+            color: #d63031;
+        }
+
+        .today-badge {
+            background: #d63031;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.6em;
+            font-weight: bold;
+        }
+
+        .meal {
+            margin-bottom: 15px;
+        }
+
+        .meal-title {
+            font-weight: bold;
+            color: #6c5ce7;
+            margin-bottom: 5px;
+            font-size: 1.1em;
+        }
+
+        .today .meal-title {
+            color: #e17055;
+        }
+
+        .meal-content {
+            color: #555;
+            padding-left: 10px;
+        }
+
+        .meal-content li {
+            margin-left: 20px;
+            margin-bottom: 3px;
+        }
+
+        .prohibited-section, .recommendations-section {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .prohibited-section h2, .recommendations-section h2 {
+            color: #856404;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+
+        .prohibited-section h3 {
+            color: #d63031;
+            margin-top: 15px;
+            margin-bottom: 8px;
+            font-size: 1.1em;
+        }
+
+        .prohibited-section ul, .recommendations-section ol {
+            margin-left: 20px;
+            color: #555;
+        }
+
+        .prohibited-section li, .recommendations-section li {
+            margin-bottom: 5px;
+        }
+
+        .nav-buttons {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .nav-button {
+            background: #6c5ce7;
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            font-size: 1.5em;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+            transition: all 0.3s;
+        }
+
+        .nav-button:active {
+            transform: scale(0.95);
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 5px;
+            }
+
+            h1 {
+                font-size: 1.3em;
+                padding: 15px 0;
+            }
+
+            .day-section {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🍽️ Menú Semanal Saludable</h1>
+
+        <div id="lunes" class="day-section">
+            <div class="day-header">
+                LUNES
+            </div>
+            <div class="meal">
+                <div class="meal-title">Desayuno:</div>
+                <div class="meal-content">
+                    <ul>
+                        <li>Avena cocida con leche de almendras</li>
+                        <li>1 manzana</li>
+                        <li>Té verde sin azúcar</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="meal">
+                <div class="meal-title">Merienda mañana:</div>
+                <div class="meal-content">
+                    <ul>
+                        <li>Yogur natural bajo en grasa</li>
+                        <li>1 puñado pequeño de nueces (10-12 unidades)</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="meal">
+                <div class="meal-title">Almuerzo:</div>
+                <div class="meal-content">
+                    <ul>
+                        <li>Ensalada de garbanzos con verduras (tomate, pepino, cebolla, pimiento)</li>
+                        <li>1 rebanada de pan integral</li>
+                        <li>Infusión de jengibre</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="meal">
+                <div class="meal-title">Merienda tarde:</div>
+                <div class="meal-content">
+                    <ul>
+                        <li>1 pieza de fruta (pera o manzana)</li>
+                        <li>Té de hierbas sin azúcar</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="meal">
+                <div class="meal-title">Cena:</div>
+                <div class="meal-content">
+                    <ul>
+                        <li>Pechuga de pollo a la plancha con limón</li>
+                        <li>Brócoli y zanahoria al vapor</li>
+                        <li>Arroz integral (porción pequeña)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div id="martes" class="day-section">
+            <div class="day-header">
+                MARTES
+            </div>
+            <div class="meal">
+                <div class="meal-title">Desayuno:</div>
+                <div class="meal-content">
+                    <ul>
+                        <li>Tostadas de pan integral con aguacate</li>
+                        <li>1 huevo cocido</li>
+                        <li>Té verde</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="meal">
+                <div class="meal-title">Merienda mañana:</div>
+                <div class="meal-content">
+                    <ul>
+                        <li>1 naranja</li>
+                        <li>5-6 almendras</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="meal">
+                <div class="meal-title">Almuerzo:</div>
+                <div class="meal-content">
+                    <ul>
+                        <li>Lentejas guisadas con verduras (zanahoria, cebolla, apio)</li>
+                        <li>Ensalada verde con aceite de oliva y limón</li>
+                        <li>Té de manzanilla</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="meal">
+                <div class="meal-title">Merienda tarde:</div>
+                <div class="meal-content">
+                    <ul>
+                        <li>Yogur desnatado con canela</li>
+                        <li>1 puñado de arándanos</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="meal">
+                <div class="meal-title">Cena:</div>
+                <div class="meal-content">
+                    <ul>
+                        <li>Merluza al horno con limón y especias</li>
+                        <li>Espárragos y patata cocida (porción pequeña)</li>
+                        <li>Infusión digestiva</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div id="miercoles" class="day-section">
+            <div class="day-header">
+                MIÉRCOLES
+            </div>
+            <div class="meal">
+                <div class="meal-title">Desayuno:</div>
+                <div class="meal-content">
+                    <ul>
+                        <li>Batido de frutas (plátano, fresas) con leche de avena</li>
+                        <li>1 tostada integral con aceite de oliva</li>
+                        <li>Té de jengibre</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="meal">
+                <div class="meal-title">Merienda mañana:</div>
+                <div class="meal-content">
+                    <ul>
+                        <li>2 kiwis</li>
+                        <li>1 yogur natural sin azúcar</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="meal">
+                <div class="meal-title">Almuerzo:</div>
+                <div class="meal-content">
+                    <ul>
+                        <li>Arroz integral con verduras salteadas (calabacín, berenjena, pimiento)</li>
+                        <li>100g de pavo a la plancha</li>
+                        <li>Infusión de menta</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="meal">
+                <div class="meal-title">Merienda tarde:</div>
+                <div class="meal-content">
+                    <ul>
+                        <li>1 manzana</li>
+                        <li>3-4 nueces</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="meal">
+                <div class="meal-title">Cena:</div>
+                <div class="meal-content">
+                    <ul>
+                        <li>Tortilla de claras con espinacas y cebolla</li>
+                        <li>Ensalada de tomate y pepino</li>
+                        <li>Té verde</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div id="jueves" class="day-section">
+            <div class="day-header">
+                JUEVES
+            </div>
+            <div class="meal">
+                <div class="meal-title">Desayuno:</div>
+                <div class="meal-content">
+                    <ul>
+                        <li>Cereales integrales sin azúcar con leche vegetal</li>
+                        <li>1 plátano</li>
+                        <li>Infusión anti-inflamatoria</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="meal">
+                <div class="meal-title">Merienda mañana:</div>
+                <div class="meal-content">
+                    <ul>
+                        <li>1 yogur griego bajo en grasa</li>
+                        <li>Canela</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="meal">
+                <div class="meal-title">Almuerzo:</div>
+                <div class="meal-content">
+                    <ul>
+                        <li>Pasta integral con salsa de tomate natural y albahaca</li>
+                        <li>Ensalada de rúcula y zanahoria</li>
+                        <li>Té digestivo</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="meal">
+                <div class="meal-title">Merienda tarde:</div>
+                <div class="meal-content">
+                    <ul>
+                        <li>2 mandarinas</li>
+                        <li>Té verde</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="meal">
+                <div class="meal-title">Cena:</div>
+                <div class="meal-content">
+                    <ul>
+                        <li>Dorada al horno con limón y hierbas</li>
+                        <li>Calabacín y cebolla a la plancha</li>
+                        <li>Infusión relajante</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div id="viernes" class="day-section">
+            <div class="day-header">
+                VIERNES
+            </div>
+            <div class="meal">
+                <div class="meal-title">Desayuno:</div>
+                <div class="meal-content">
+                    <ul>
+                        <li>Yogur con avena, canela y manzana rallada</li>
+                        <li>Té de jengibre y cúrcuma</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="meal">
+                <div class="meal-title">Merienda mañana:</div>
+                <div class="meal-content">
+                    <ul>
+                        <li>1 pera</li>
+                        <li>5-6 avellanas</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="meal">
+                <div class="meal-title">Almuerzo:</div>
+                <div class="meal-content">
+                    <ul>
+                        <li>Quinoa con verduras (zanahoria, calabacín, pimiento)</li>
+                        <li>Tofu a la plancha con especias</li>
+                        <li>Infusión digestiva</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="meal">
+                <div class="meal-title">Merienda tarde:</div>
+                <div class="meal-content">
+                    <ul>
+                        <li>1 puñado de fresas</li>
+                        <li>Té verde</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="meal">
+                <div class="meal-title">Cena:</div>
+                <div class="meal-content">
+                    <ul>
+                        <li>Crema de calabaza y zanahoria (sin nata)</li>
+                        <li>1 rebanada de pan integral</li>
+                        <li>Infusión relajante</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div id="sabado" class="day-section">
+            <div class="day-header">
+                SÁBADO
+            </div>
+            <div class="meal">
+                <div class="meal-title">Desayuno:</div>
+                <div class="meal-content">
+                    <ul>
+                        <li>Pan integral con aguacate y tomate</li>
+                        <li>1 huevo cocido</li>
+                        <li>Té verde</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="meal">
+                <div class="meal-title">Merienda mañana:</div>
+                <div class="meal-content">
+                    <ul>
+                        <li>Smoothie de espinacas, plátano y leche de almendras</li>
+                        <li>3-4 nueces</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="meal">
+                <div class="meal-title">Almuerzo:</div>
+                <div class="meal-content">
+                    <ul>
+                        <li>Ensalada de judías blancas con tomate, pepino y cebolla</li>
+                        <li>1 rebanada de pan integral</li>
+                        <li>Té digestivo</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="meal">
+                <div class="meal-title">Merienda tarde:</div>
+                <div class="meal-content">
+                    <ul>
+                        <li>1 manzana</li>
+                        <li>Yogur natural bajo en grasa</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="meal">
+                <div class="meal-title">Cena:</div>
+                <div class="meal-content">
+                    <ul>
+                        <li>Pechuga de pavo a la plancha con limón</li>
+                        <li>Berenjena y calabacín asados</li>
+                        <li>Té de manzanilla</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div id="domingo" class="day-section">
+            <div class="day-header">
+                DOMINGO
+            </div>
+            <div class="meal">
+                <div class="meal-title">Desayuno:</div>
+                <div class="meal-content">
+                    <ul>
+                        <li>Tortitas de avena (con plátano machacado en lugar de azúcar)</li>
+                        <li>Té anti-inflamatorio</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="meal">
+                <div class="meal-title">Merienda mañana:</div>
+                <div class="meal-content">
+                    <ul>
+                        <li>1 puñado de arándanos y frambuesas</li>
+                        <li>5-6 almendras</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="meal">
+                <div class="meal-title">Almuerzo:</div>
+                <div class="meal-content">
+                    <ul>
+                        <li>Guisantes con cebolla pochada</li>
+                        <li>Bacalao al horno con tomate, cebolla y pimiento</li>
+                        <li>Infusión digestiva</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="meal">
+                <div class="meal-title">Merienda tarde:</div>
+                <div class="meal-content">
+                    <ul>
+                        <li>1 pera</li>
+                        <li>Té verde</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="meal">
+                <div class="meal-title">Cena:</div>
+                <div class="meal-content">
+                    <ul>
+                        <li>Crema de calabacín (sin nata)</li>
+                        <li>1 huevo cocido</li>
+                        <li>Infusión relajante</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="prohibited-section">
+            <h2>⚠️ ALIMENTOS ABSOLUTAMENTE PROHIBIDOS</h2>
+
+            <h3>Altos en purinas (elevan el ácido úrico):</h3>
+            <ul>
+                <li>Vísceras (hígado, riñones, mollejas)</li>
+                <li>Mariscos (especialmente mejillones, almejas, ostras)</li>
+                <li>Carnes rojas (ternera, cordero, cerdo)</li>
+                <li>Embutidos y carnes procesadas</li>
+                <li>Extractos de carne y caldos concentrados</li>
+                <li>Anchoas, sardinas, arenques, caballa, atún</li>
+                <li>Alcohol (especialmente cerveza)</li>
+            </ul>
+
+            <h3>Alimentos pro-inflamatorios:</h3>
+            <ul>
+                <li>Azúcares refinados y dulces</li>
+                <li>Harinas blancas y productos de bollería</li>
+                <li>Alimentos fritos</li>
+                <li>Grasas trans y aceites vegetales refinados</li>
+                <li>Carnes procesadas</li>
+                <li>Refrescos y bebidas azucaradas</li>
+                <li>Edulcorantes artificiales</li>
+                <li>Exceso de lácteos grasos</li>
+                <li>Alcohol</li>
+            </ul>
+
+            <h3>Otros alimentos a limitar:</h3>
+            <ul>
+                <li>Espárragos (contienen purinas moderadas, consumir con moderación)</li>
+                <li>Coliflor y champiñones (purinas moderadas)</li>
+                <li>Lentejas, guisantes y habas (consumir con moderación)</li>
+                <li>Espinacas (purinas moderadas)</li>
+            </ul>
+        </div>
+
+        <div class="recommendations-section">
+            <h2>💡 RECOMENDACIONES GENERALES</h2>
+            <ol>
+                <li><strong>Hidratación:</strong> Beber al menos 2 litros de agua diarios para ayudar a eliminar el ácido úrico.</li>
+                <li><strong>Tamaño de porciones:</strong> Controlar las cantidades para evitar sobrepeso.</li>
+                <li><strong>Preparaciones:</strong> Priorizar cocciones al vapor, horno, plancha o hervido.</li>
+                <li><strong>Consistencia:</strong> Mantener horarios regulares de comidas.</li>
+                <li><strong>Alimentos anti-inflamatorios:</strong> Incorporar cúrcuma, jengibre y canela regularmente.</li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="nav-buttons">
+        <button class="nav-button" onclick="scrollToToday()">📅</button>
+        <button class="nav-button" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">⬆️</button>
+    </div>
+
+    <script>
+        // Get current day and scroll to it
+        function scrollToToday() {
+            const days = ['domingo', 'lunes', 'martes', 'miercoles', 'jueves', 'viernes', 'sabado'];
+            const today = new Date().getDay();
+            const todayId = days[today];
+
+            const todayElement = document.getElementById(todayId);
+            if (todayElement) {
+                todayElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+
+        // Mark today's section
+        function markToday() {
+            const days = ['domingo', 'lunes', 'martes', 'miercoles', 'jueves', 'viernes', 'sabado'];
+            const today = new Date().getDay();
+            const todayId = days[today];
+
+            const todayElement = document.getElementById(todayId);
+            if (todayElement) {
+                todayElement.classList.add('today');
+                const header = todayElement.querySelector('.day-header');
+                const badge = document.createElement('span');
+                badge.className = 'today-badge';
+                badge.textContent = 'HOY';
+                header.appendChild(badge);
+            }
+        }
+
+        // Run on page load
+        window.addEventListener('load', function() {
+            markToday();
+            // Auto-scroll to today after a short delay
+            setTimeout(scrollToToday, 300);
+        });
+    </script>
+</body>
+</html>
